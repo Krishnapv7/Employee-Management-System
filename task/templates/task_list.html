@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .action-buttons .btn {
+            margin-right: 5px;
+        }
+        .btn-group .btn {
+            margin-right: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Task List</h1>
+    <div class='container text-left' >
+        <form method="GET" action="{% url 'task_list' %}">
+            <input type="text" name="search" placeholder="Search...">
+            <button type="submit">Search</button>
+        
+    </div></form>
+        
+        <table class="table table-bordered" style="margin-top: 20px;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Sl. No.</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    {% if request.user.is_superuser %}
+                        <th>Assigned User</th>
+                    {% endif %}
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.date }}</td>
+                    <td>{{ task.get_status_display }}</td>
+                    {% if request.user.is_superuser %}
+                        <td>{{ task.assigned.firstname }} {{ task.assigned.lastname }}</td>
+                    {% endif %}
+                    <td class="action-buttons">
+                        <div class="btn-group">
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if request.user.is_superuser %}
+            <a href="{% url 'add_task' %}" class="btn btn-success">Add Task</a>
+        {% endif %}
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back To Home</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

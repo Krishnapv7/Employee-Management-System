@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete User</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Delete User</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.firstname.id_for_label }}">First Name:</label>
+                <p>{{ object.firstname }}</p>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.lastname.id_for_label }}">Last Name:</label>
+                <p>{{ object.lastname }}</p>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.phonenumber.id_for_label }}">Phone Number:</label>
+                <p>{{ object.phonenumber }}</p>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                <p>{{ object.email}}</p>
+            </div>
+            <button type="submit" class="btn btn-delete">Delete</button>
+        </form>
+        <br>
+        <a href="{% url 'user_list' %}" class="btn btn-cancel">Cancel</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

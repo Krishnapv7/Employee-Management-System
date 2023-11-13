@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container text-center">
+        <h1>User List</h1>
+    <div class='container text-left' >
+        <form method="GET" action="{% url 'user_list' %}">
+            <input type="text" name="search" placeholder="Search...">
+            <button type="submit">Search</button>
+
+    </div>
+        <table class="table table-bordered" style='margin-top:20px;'>
+            <thead class="thead-dark">
+                <tr>
+                    <th>Sl. No.</th>
+                    <th>Full Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>DOB</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.firstname }} {{ user.lastname }}</td>
+                    <td>{{ user.phonenumber }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.dob }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>
+                        {% if user.is_active %}
+                            Active
+                        {% else %}
+                            Inactive
+                        {% endif %}
+                    </td>
+                    <td><a href="{% url 'change_password'  %}">Change password</a></td>
+                    <td class="action-buttons">
+                        <a href="{% url 'edit_user' user.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_user' user.id %}" class="btn btn-danger">Delete</a>
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_user' %}" class="btn btn-success">Add User</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back To Home</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
