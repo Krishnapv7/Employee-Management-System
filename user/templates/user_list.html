@@ -31,17 +31,17 @@
                 </tr>
             </thead>
             <tbody>
-                {% for user in users %}
+                {% for u in users %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ user.firstname }} {{ user.lastname }}</td>
-                    <td>{{ user.phonenumber }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.dob }}</td>
-                    <td>{{ user.gender }}</td>
-                    <td>{{ user.address }}</td>
+                    <td>{{ u.firstname }} {{ u.lastname }}</td>
+                    <td>{{ u.phonenumber }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.dob }}</td>
+                    <td>{{ u.gender }}</td>
+                    <td>{{ u.address }}</td>
                     <td>
-                        {% if user.is_active %}
+                        {% if u.is_active %}
                             Active
                         {% else %}
                             Inactive
@@ -49,8 +49,8 @@
                     </td>
                     <td><a href="{% url 'change_password'  %}">Change password</a></td>
                     <td class="action-buttons">
-                        <a href="{% url 'edit_user' user.id %}" class="btn btn-primary">Edit</a>
-                        <a href="{% url 'delete_user' user.id %}" class="btn btn-danger">Delete</a>
+                        <a href="{% url 'edit_user' u.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_user' u.id %}" class="btn btn-danger">Delete</a>
                         
                     </td>
                 </tr>

@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import UserListView,EditUserView,AddUserView,DeleteUserView,ChangePasswordView
-from django.conf.urls.static import static
-from django.conf import settings
+
 
 urlpatterns = [
     path('user_list/',UserListView.as_view(),name='user_list'),
@@ -14,6 +13,3 @@ urlpatterns = [
 
 
 
-# Serve media files during development
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

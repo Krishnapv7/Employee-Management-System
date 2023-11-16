@@ -1,3 +1,5 @@
+from typing import Any
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render,redirect
 from .models import BaseUser
 from django.views.generic import ListView,DetailView
@@ -59,28 +61,17 @@ class EditUserView(LoginRequiredMixin, UpdateView):
     model = BaseUser
     form_class = UserForm
     template_name = 'edit_user.html'
-    success_url = reverse_lazy('user_list')
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        print(self.object)
+        return super().get(request, *args, **kwargs)
 
-    def form_valid(self, form):
-        print('form is valid')
-        user = form.save(commit=False)
+    
+   
 
-        # Check if assigned user is empty or None
-        assigned_user_id = self.request.POST.get('assigned', None)
-        if assigned_user_id:
-            user.assigned = BaseUser.objects.get(pk=assigned_user_id)
-        else:
-            user.assigned = None
-        
-        # Check if a new photo was uploaded
-        if 'photo' in self.request.FILES:
-            user.photo = self.request.FILES['photo']    
-        else:
-            # No new photo uploaded, so preserve the existing one
-            user.photo = user.photo  # This line ensures the existing photo 
-        
-        user.save()
-        return super().form_valid(form)
+
+
 
 # Change Password View
 class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):

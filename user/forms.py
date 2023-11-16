@@ -6,7 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 
 class UserForm(forms.ModelForm):
-    photo = forms.ImageField(required=False)
+    # photo = forms.ImageField(required=False)
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
     

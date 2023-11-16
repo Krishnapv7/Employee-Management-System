@@ -20,6 +20,8 @@ from task.views import Loginview,HomeView,LogoutView
 from django.contrib.auth.decorators import login_required
 from task import views
 from django.contrib.auth.views import LoginView
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,3 +31,7 @@ urlpatterns = [
     path('user/',include('user.urls')),
     path('task/',include('task.urls')),
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
